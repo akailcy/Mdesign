@@ -2,7 +2,7 @@
 def build_generator(latent_size):
     # we will map a pair of (z, L), where z is a latent vector and L is a
     # label drawn from P_c, to image space (..., 28, 28, 1)
-	cnn = Sequential()
+    cnn = Sequential()
 
     # cnn.add(Dense(128 * 7 * 7, activation="relu", input_dim=100))
     # cnn.add(Reshape((7, 7, 128)))
@@ -21,7 +21,7 @@ def build_generator(latent_size):
     cnn.add(Activation("tanh"))
 
     cnn.summary()
-	#卧槽，怎么把分类标签信息导入进去
+    #卧槽，怎么把分类标签信息导入进去
     # this is the z space commonly referred to in GAN papers
     latent = Input(shape=(latent_size,latent_size,1 ))#输入的低分辨率图像
 
@@ -37,7 +37,7 @@ def build_generator(latent_size):
     fake_image = cnn(h)
 
     return Model([latent, image_class], fake_image)
-	
+
 def build_discriminator():
     # build a relatively standard conv net, with LeakyReLUs as suggested in
     # the reference paper
@@ -73,5 +73,4 @@ def build_discriminator():
     fake = Dense(1, activation='sigmoid', name='generation')(features)
     aux = Dense(num_classes, activation='softmax', name='auxiliary')(features)
 
-    return Model(image, [fake, aux])	
-	   
+    return Model(image, [fake, aux])
